@@ -1,0 +1,27 @@
+# CPP-algorithms
+t-shaped engineering
+
+BINARY EXPANSION
+This is used to find the powers of a number which works in O(LogN).
+Suppose, If we have a number A=4.To find 4^5 we normally 4*4*4*4*4 which runs a loop for 5 times.
+For 4^100 we run a loop for 100 times which leads to TLE(time limit exceeded).
+So to avoid TLE we use BINARY EXPANSION.
+CODE:
+
+#include<bits/stdc++.h>
+using namespace std;
+int power(int A,int n)
+{
+	if(n==0)return 1;
+	int x=power(A,n/2);
+	if(n%2==0)return x*x;
+	else return x*x*A;
+}
+int main()
+{
+	int A;
+	cin>>A;
+	int n;
+	cin>>n;
+	cout<<power(A,n);
+}
