@@ -1,0 +1,109 @@
+# CPP-algorithms
+t-shaped engineering
+FACTORS_COUNT
+To find number of factors of a number using SEIVE algorithm
+STEP 1:
+     * we will generate SEIVE
+Take a vector and fill the vector with the indices
+eg:
+factors=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
+And starting from square of 2 make multiples of 2 as 2 if the number is same as the index ....2^2=4
+NOW ur vector will look like
+factors=[0,1,2,3,2,5,2,7,2,9,2,11,2,13,2,15,2,17,2,19,2,21,2,23,2,25]
+And starting from square of 3 make multiples of 3 as 3 if the number is same as the index ....3^2=9
+NOW ur vector will look like
+factors=[0,1,2,3,2,5,2,7,2,3,2,11,2,13,2,13,2,17,2,19,2,3,2,23,2,25]
+And starting from square of 4 make multiples of 4 as 4 if the number is same as the index ....4^2=16
+NOW ur vector will look like
+factors=[0,1,2,3,2,5,2,7,2,3,2,11,2,13,2,13,2,17,2,19,2,3,2,23,2,25]
+same because 4 multiples are already multiples of 2 So,there will be no change
+And starting from square of 5 make multiples of 5 as 5 if the number is same as the index ....5^2=25
+NOW ur vector will look like
+factors=[0,1,2,3,2,5,2,7,2,3,2,11,2,13,2,13,2,17,2,19,2,3,2,23,2,5]
+SO,when u reached to Sqrt(25)=5...u can stop
+EG:
+if you take ur vector size as 100...u can do those vector modifications upto index 10 i.e sqrt(100)
+STEP 2:
+    You will take a value
+    EG:N=100
+    Now you will find factors[100] in seive that u created
+    then
+    factors[100]=2 (In generated seive)
+     count of 2's=1
+    N=N/2;
+    N=50
+    factors[50]=2 (In generated seive)
+     count of 2's=2
+    N=N/2;
+    N=25
+    factors[25]=5 (In generated seive)
+     count of 5's=1
+    N=N/5;
+    N=5
+    factors[5]=5 (In generated seive)
+     count of 5's=2
+    N=N/5;
+    N=1
+    When your N becomes 1 u can stop 
+    STEP 3:
+    COUNT_OF_FACTORS=(count of 2's+1)*(count of 5's+1)
+                    =(2+1)*(2+1)
+                    =3*3
+                    =9
+    So,total no of factos for 100=9
+    CODE:
+    #include<bits/stdc++.h>
+using namespace std;
+const int maxi=1e6+5;
+vector<int>factors(maxi);
+void gen_fact()
+{
+	factors[0]=0;
+	factors[1]=1;
+	for(int i=0;i<=maxi;i++)
+	{
+		factors[i]=i;
+	}
+	for(int i=2;i*i<=maxi;i++)
+	{
+		if(factors[i]==i)
+		{
+			for(int j=i*i;j<=maxi;j+=i)
+			{
+				if(factors[j]==j)
+				factors[j]=i;
+			}
+		}
+	}
+}
+int factors_count(int num)
+{
+	int sum=0,ans=1,cnt=0,k=0,h,c;
+	while(num>=1)
+	{
+		c=factors[num];
+		//cout<<c<<" ";
+		if(k>1 and c!=h)
+		{
+			sum=1+cnt;
+			ans=ans*sum;
+			cnt=0;
+		}
+		if(num==1)
+			break;
+		num=num/c;
+		h=c;
+		cnt++;
+		k++;
+	}
+	return ans;
+}
+int main()
+{
+	gen_fact();
+	int n;
+	cin>>n;
+	cout<<factors_count(n);
+}
+
+    
