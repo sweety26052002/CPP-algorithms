@@ -1,0 +1,59 @@
+EXTENDED EUCLID ALGORITHM
+Problem:
+ax+by=gcd(a,b)
+we have given a and b.....we have to find x,y.
+EXPAINATION:
+ax+by=gcd(a,b)-----(1)
+bx1+ay1=gcd(b,a%b)-----(2)  //applying gcd
+we know that
+   gcd(a,b)=gcd(b,a%b)
+so, ax+by=bx1+ay1   //we can write a=a-(a/b)*b
+    ax+by=bx1+(a-(a/b)*b)y1
+    ax+by=b(x1-(a/b)*y1)+ay1
+    now compare the coefficients
+    then
+    x=y1 , y=x1-(a/b)y1
+    .
+    .
+    .
+    at certain point of time ur gcd becomes gcd(a,0)=a
+    then a*1+b*0=a
+    ur x=1,y=0(x=nth x,y=nth y)
+    it will return to the before function which is called
+   CODE:
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+const ll mod=1e9+7;
+class extended_data
+{
+public:
+	ll gcd;
+	ll x;
+	ll y;
+};
+extended_data extendedgcd(int a,int b)
+{
+	extended_data ans;
+	if(b==0)
+	{
+      ans.gcd=a;
+      ans.x=1;
+      ans.y=0;
+      return ans;
+	}
+	extended_data temp=extendedgcd(b,a%b);
+	ans.gcd=temp.gcd;
+	ans.x=temp.y;
+	ans.y=(temp.x-(a/b)*temp.y);
+	return ans;
+}
+int main()
+{
+	int a,b;
+	cin>>a>>b;
+	extended_data myans;
+myans=extendedgcd(a,b);
+cout<<myans.gcd<<" "<<myans.x<<" "<<myans.y;
+}
+    
