@@ -1,0 +1,33 @@
+to create subset that means if we take n=3 and array contains numbers 1 2 3 then subsets are: 
+[]--->0 0 0->binary 0
+1---->0 0 1-->1
+2 --->0 1 0-->2
+1 2-->0 1 1-->3
+3 --->1 0 0-->4
+1 3-->1 0 1-->5
+2 3-->1 1 0-->6
+1 2 3->1 1 1-->7
+we want upto 7(2^3-1) if it is 3
+if it is 4 then we will do upto 2^4-1(1<<4)
+0 t0 7(1<<3)
+PROGRAM:
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int n,i,j;
+    cin>>n;
+    int a[n];
+    for(i=0;i<n;i++)
+    cin>>a[i];
+   // cout<<endl;
+    for(i=0;i<(1<<n);i++)
+    {
+        for(j=0;j<n;j++)
+        {
+            if(i&(1<<j))
+            cout<<a[j]<<" ";
+        }
+        cout<<endl;
+    }
+}
