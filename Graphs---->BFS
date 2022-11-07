@@ -1,0 +1,94 @@
+GRAPH
+-->non-linear data structure
+-->it has two components
+   1.vertex(node)
+   2.edge
+-->we have directed graph and undirected graph
+-->In directed graph there will be directions
+Degree
+   The number of edges that the node is connected.
+For undirected graph
+     Total degree=2*number of edges
+For directed graph
+     There will be indegree and outdegree
+      1.Indegree-number of edges coming to the node
+      2.Outdegree-number of edges leaving the node
+We represent the graph in two ways
+    1.Adjacency matrix
+    2.Adjacency List
+For graph traversing 
+     1.BFS
+     2.DFS
+BFS------>BREADTH FIRST SEARCH
+-->we use queue and visited array in bfs
+Let us consider an example
+5(nodes) 6(edges)           2 --------4           
+1 2                        /         /|
+1 3                       /         / |
+2 4                      1         /  |
+3 4                        \      /   |
+3 5                          \   /    |
+4 5                            3------5   
+
+Create a adjacency list
+1--->2 3
+2--->1 4
+3--->1 4 5
+4--->2 3 5
+5--->3 4
+                 0 1 2 3 4 5
+visited array v=[0,0,0,0,0,0]
+Queue q which is empty
+Start with 1
+make v[1]=1  v=[0,1,0,0,0,0]
+push 1 into the queue
+q=[1]
+now pop the top and get all the nodes connected to that top from the adjacency list and push into the queue if they are not visited push into the queue and
+mark as visited.
+q=[3,2]
+v[2]=1,v[3]=1
+pop top element .......and repeat the same process................
+
+CODE:
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+	int n,m;
+	cin>>n>>m;
+	vector<int>adj[n+1];
+	for(int i=0;i<m;i++)
+	{
+		int u,v;
+		cin>>u>>v;
+		adj[u].push_back(v);
+		adj[v].push_back(u);
+	}
+	vector<int>vis(n+1,0);
+	queue<int>q;
+	for(int i=1;i<=n;i++)
+	{
+		if(!vis[i])
+		{
+			q.push(i);
+			vis[i]=1;
+		}
+		while(q.size()!=0)
+		{
+			int a=q.front();
+			q.pop();
+			cout<<a<<" ";
+			for(auto it:adj[a])
+			{
+				if(!vis[it])
+				{
+					q.push(it);
+					vis[it]=1;
+				}
+			}
+		 }
+	}
+}
+
